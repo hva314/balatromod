@@ -156,6 +156,8 @@ end
 function EventManager:clear_queue(queue, exception)
     if not queue then
         --clear all queues
+        --also abandons a hand still being scored: only leave paths (menu, new run, profile, language) clear everything
+        G.SCORING_COROUTINE = nil
         for k, v in pairs(self.queues) do
             local i=1
             while i <= #v do

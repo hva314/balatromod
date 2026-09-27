@@ -540,6 +540,7 @@ G.FUNCS.play_cards_from_highlighted = function(e)
                     trigger = 'after',
                     delay = 0.1,
                     func = function()
+                        if G.SCORING_COROUTINE then return false end
                         check_for_unlock({type = 'play_all_hearts'})
                         G.FUNCS.draw_from_play_to_discard()
                         G.GAME.hands_played = G.GAME.hands_played + 1
@@ -550,6 +551,7 @@ G.FUNCS.play_cards_from_highlighted = function(e)
                 G.E_MANAGER:add_event(Event({
                     trigger = 'immediate',
                     func = function()
+                        if G.SCORING_COROUTINE then return false end
                         G.STATE_COMPLETE = false
                         return true
                     end
