@@ -1158,7 +1158,15 @@ function Card:get_chip_mult()
     if self.debuff then return 0 end
     if self.ability.set == 'Joker' or self.ability.set == 'custom_joker' then return 0 end
     if self.ability.consumeable then return 0 end
-    return self.ability.mult + (self.ability.perma_mult or 0)
+    local mult = self.ability.mult
+    if self.ability.effect == "Lucky Card" then
+        if pseudorandom('lucky_mult') < G.GAME.probabilities.normal/5 then
+            self.lucky_trigger = true
+        else
+            mult = 0
+        end
+    end
+    return mult + (self.ability.perma_mult or 0)
 end
 
 function Card:get_chip_h_mult()
