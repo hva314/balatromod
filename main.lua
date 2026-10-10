@@ -30,7 +30,6 @@ require "engine/particles"
 require "engine/text"
 require "challenges"
 require "mods/Always_Show_Seed"
-require "mods/Talisman/talisman"
 
 math.randomseed( G.SEED )
 
@@ -490,3 +489,7 @@ function love.resize(w, h)
 		set_screen_positions()
 	end
 end 
+
+-- Talisman must load after love.update is defined above: its love.update hook resumes the
+-- scoring coroutine (upstream, Lovely appends talisman.lua to the end of main.lua).
+require "mods/Talisman/talisman"
